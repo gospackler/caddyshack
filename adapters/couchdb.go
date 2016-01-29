@@ -1,9 +1,8 @@
 package adapters
 
 import (
-    "../../caddyshack"
     "github.com/patrickjuchli/couch"
-    "github.com/johnhof/caddyshack/adapters"
+    "github.com/bushwood/caddyshack/adapters"
     "github.com/spf13/viper"
 )
 var CouchDb caddyshack.Adapter = caddyshack.Adapter{

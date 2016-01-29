@@ -3,7 +3,7 @@ package couchdb
 
 import (
     "errors"
-    "github.com/johnhof/caddyshack/adapters"
+    "github.com/bushwood/caddyshack/adapters"
 )
 
 var Adapters map[string]Adapter = []Adapter{
