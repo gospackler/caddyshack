@@ -74,15 +74,15 @@ func main() {
     cs, _ := caddyshack.New()
     models, _ := caddyshack.ParseModelDir("./models")
     cs.LoadModels(models)
-    cs.Connect(&collections)
+    cs.Connect()
     cs.Create("user", SomeDefinition{})
-    
+
     // OR
 
     cs, _ := caddyshack.New()
     models, _ := caddyshack.ParseModelDir("./models")
     cs.LoadModels(models)
-    cs.Connect(&collections)
+    cs.Connect()
     cs.Collections["user"].Create("user", SomeDefinition{})
 
 
