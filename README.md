@@ -65,28 +65,10 @@ import (
 )
 func main() {
     models, _ := caddyshack.ParseModelDir("./models")
-    collections, _ := caddyshack.LoadModels(models)
-    caddyshack.Connect(&collections, [couch])
-    collections["user"].Create(SomeDefinition{})
-
-    // OR
-
     cs, _ := caddyshack.New()
-    models, _ := caddyshack.ParseModelDir("./models")
     cs.LoadModels(models)
     cs.LoadAdapter(couch)
     cs.Connect()
     cs.Create("user", SomeDefinition{})
-
-    // OR
-
-    cs, _ := caddyshack.New()
-    models, _ := caddyshack.ParseModelDir("./models")
-    cs.LoadModels(models)
-    cs.LoadAdapter(couch)
-    cs.Connect()
-    cs.Collections["user"].Create("user", SomeDefinition{})
-
-
 }
 ```
