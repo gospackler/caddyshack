@@ -98,5 +98,15 @@ func main() {
     cs.LoadAdapter(couch, rsc["couchdb"])
     cs.Connect()
     cs.Create("user", SomeDefinition{})
+
+    // OR
+
+    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
+    models, _ := caddyshack.ParseModelDir("./models")
+    cs, _ := caddyshack.New()
+    cs.LoadModels(models)
+    adts := make(map[string]caddychack.Adapter)
+    cs.init(adts, rsc)
+    cs.Create("user", SomeDefinition{})
 }
 ```
