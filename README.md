@@ -13,9 +13,25 @@ Assume directory structure:
 ```
 - main.go
 - config/
+--- resources.json
 --- models/
 ----- user.json
 ----- note.json
+```
+
+#### ./config/resources.json
+
+```json
+{
+  "redis": {
+    "host": "127.0.0.1",
+    "port": "6379"
+  },
+  "couchdb": {
+    "host": "127.0.0.1",
+    "port": "5984"
+  }
+}
 ```
 
 #### ./config/models/user.json
@@ -64,10 +80,22 @@ import (
   	couch "github.com/bushwood/caddyshack-couchdb"
 )
 func main() {
+    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
     models, _ := caddyshack.ParseModelDir("./models")
+    couchAdt, _ := couch.New(rsc["couchdb"])
     cs, _ := caddyshack.New()
     cs.LoadModels(models)
     cs.LoadAdapter(couch)
+    cs.Connect()
+    cs.Create("user", SomeDefinition{})
+
+    // OR
+
+    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
+    models, _ := caddyshack.ParseModelDir("./models")
+    cs, _ := caddyshack.New()
+    cs.LoadModels(models)
+    cs.LoadAdapter(couch, rsc["couchdb"])
     cs.Connect()
     cs.Create("user", SomeDefinition{})
 }

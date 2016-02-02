@@ -62,13 +62,6 @@ func LoadModels(s map[string]CollectionModel) (map[string]Collection) {
     return c
 }
 
-// LoadModel load a model map and return a map of initialized collections
-func LoadModel(s CollectionModel) (Collection) {
-    var c map[string]Collection
-    // create connection requirements
-    return c
-}
-
 type CollectionModel struct {
     Adapter string                      `json:adapter`
     Properties map[string]PropertyModel `json:properties`
