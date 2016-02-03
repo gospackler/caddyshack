@@ -1,6 +1,7 @@
-package caddyshack
+package resource
 
-type Resource struct {
+type Definition struct {
+    Name string     `json:name`
     Host string     `json:"host"`
     Port string     `json:"port"`
     Username string `json:"username"`

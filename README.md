@@ -80,18 +80,7 @@ import (
   	couch "github.com/bushwood/caddyshack-couchdb"
 )
 func main() {
-    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
-    models, _ := caddyshack.ParseModelDir("./models")
-    couchAdt, _ := couch.New(rsc["couchdb"])
-    cs, _ := caddyshack.New()
-    cs.LoadModels(models)
-    cs.LoadAdapter(couch)
-    cs.Connect()
-    cs.Create("user", SomeDefinition{})
-
-    // OR
-
-    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
+    rsc, _ :=  caddyshack.ParseRscFile("./resources.json")
     models, _ := caddyshack.ParseModelDir("./models")
     cs, _ := caddyshack.New()
     cs.LoadModels(models)
@@ -99,14 +88,7 @@ func main() {
     cs.Connect()
     cs.Create("user", SomeDefinition{})
 
-    // OR
-
-    rsc, _ :=  caddyshack.LoadRscFile("./resources.json")
-    models, _ := caddyshack.ParseModelDir("./models")
-    cs, _ := caddyshack.New()
-    cs.LoadModels(models)
-    adts := make(map[string]caddychack.Adapter)
-    cs.init(adts, rsc)
-    cs.Create("user", SomeDefinition{})
+    User := cd.Model["user"]
+    User["findbyid"](Query{})
 }
 ```
