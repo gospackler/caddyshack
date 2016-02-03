@@ -6,6 +6,7 @@ import (
     "github.com/bushwood/caddyshack/adapter"
     "github.com/bushwood/caddyshack/model"
     "github.com/bushwood/caddyshack/resource"
+    log "github.com/Sirupsen/logrus"
 )
 
 type Caddyshack struct {
@@ -41,16 +42,20 @@ func (cs *Caddyshack) LoadModel(model model.Definition) (Caddyshack, error) {
     return *cs, nil
 }
 
-// // LoadAdapters loads a map of adapters into the instance
-// func (cs *Caddyshack) LoadAdapters(adps map[string]adapter.Definition) (Caddyshack, error) {
-//     for _, v := range adps {
-//         _, err := cs.LoadAdapter(v)
-//         if err != nil {
-//             return *cs, err
-//         }
-//     }
-//     return *cs, nil
-// }
+// LoadAdapters loads a map of adapters into the instance
+func (cs *Caddyshack) LoadAdapters(adps map[string]adapter.Definition, rscs map[string]resource.Definition) (Caddyshack, error) {
+    for _, adp := range adps {
+        name := adp.GetName()
+        if name == "" {
+            return *cs, errors.New("adapter .Name cannot be empty")
+        }
+        _, err := cs.LoadAdapter(adp, rscs[name])
+        if err != nil {
+            return *cs, err
+        }
+    }
+    return *cs, nil
+}
 
 // LoadAdapter loads a single adapter into the instance
 func (cs *Caddyshack) LoadAdapter(adp adapter.Definition, rsc resource.Definition) (Caddyshack, error) {
@@ -59,5 +64,7 @@ func (cs *Caddyshack) LoadAdapter(adp adapter.Definition, rsc resource.Definitio
         return *cs, errors.New("adapter .Name cannot be empty")
     }
     cs.Adapters[name] = adp
+    log.Debug(cs.Adapters[name])
+    log.Debug("FUCK")
     return *cs, nil
 }

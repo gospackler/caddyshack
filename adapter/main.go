@@ -5,8 +5,10 @@ import (
 )
 
 type Definition interface {
-    SetName(string)
     GetName() (string)
+    SetName(string) (error)
     GetConfig() (resource.Definition)
     SetConfig(resource.Definition) (error)
+    Open() (error)
+    Close() (error)
 }

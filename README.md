@@ -79,16 +79,24 @@ import (
     "github.com/bushwood/caddyshack"
   	couch "github.com/bushwood/caddyshack-couchdb"
 )
+
 func main() {
-    rsc, _ :=  caddyshack.ParseRscFile("./resources.json")
+    rscs, _ :=  caddyshack.ParseRscFile("./resources.json")
     models, _ := caddyshack.ParseModelDir("./models")
+
     cs, _ := caddyshack.New()
     cs.LoadModels(models)
-    cs.LoadAdapter(couch, rsc["couchdb"])
-    cs.Connect()
-    cs.Create("user", SomeDefinition{})
+    cs.LoadAdapter(couchAdp.Adapter, rscs["couchdb"])
+    cs.Init() // open connection pools to loaded adapter databases
 
-    User := cd.Model["user"]
-    User["findbyid"](Query{})
+    SomeHandlerFunction(cs)
+}
+
+func SomeHandlerFunction (cs caddyshack.Caddyshack) {
+  User := cd.Model["user"].Open() // retrieve from connection pool
+
+  // ... some work ...
+
+  User["findbyid"](Query{})
 }
 ```
