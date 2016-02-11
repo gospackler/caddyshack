@@ -87,16 +87,61 @@ func main() {
     cs, _ := caddyshack.New()
     cs.LoadModels(models)
     cs.LoadAdapter(couchAdp.Adapter, rscs["couchdb"])
-    cs.Init() // open connection pools to loaded adapter databases
+    // cs.Init() // open connection pools to loaded adapter databases
 
     SomeHandlerFunction(cs)
 }
 
 func SomeHandlerFunction (cs caddyshack.Caddyshack) {
-  User := cd.Model["user"].Open() // retrieve from connection pool
+  User := cs.Open("User") // retrieve from connection pool
 
   // ... some work ...
 
   User["findbyid"](Query{})
 }
+
+func Open (name string) map[string]func {
+  m := Model.New(Adapter[name])
+
+}
+
+func New(a Adapter) map[string]func {
+  m := make(map[string]func)
+  m.Connect()
+  m.set["findBy" + model.getkey] -> findByProperties(model.getKey, connectiobn)
+  return m
+}
+
+
+func  findByProperties(k string, c Connection){
+  return func (query) {
+
+  }
+}
 ```
+
+### process
+
+#### Init
+
+- load models
+- load adapters
+- build collections
+  - for each model, get the adapters
+  - call `cs.Collections[NAME] = cs[ADAPTER_NAME].BuildCollection(NAME, MODEL)`
+    - internally
+      - Map the model function to a wrapper that takes a connection and returns a result
+
+#### Usage
+
+- open the model
+  - `user := cs.Open("User")`
+
+#### cs.Open("User")
+
+```go
+func (cs * caddyshack.Definition) Open(name string) (caddyshack.Result) {
+    conn := cs.Collection[name].Connect()
+    
+}
+```  
