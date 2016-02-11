@@ -130,7 +130,9 @@ func  findByProperties(k string, c Connection){
   - for each model, get the adapters
   - call `cs.Collections[NAME] = cs[ADAPTER_NAME].BuildCollection(NAME, MODEL)`
     - internally
-      - Map the model function to a wrapper that takes a connection and returns a result
+      - somehow map models with a dynamic connection....
+
+
 
 #### Usage
 
@@ -142,6 +144,48 @@ func  findByProperties(k string, c Connection){
 ```go
 func (cs * caddyshack.Definition) Open(name string) (caddyshack.Result) {
     conn := cs.Collection[name].Connect()
-    
+
 }
 ```  
+
+#### Approach 1
+
+- pros
+  - leaves pool/connection implementation up to adapter
+  - allows injection of methods into collections
+- cons
+  - forces user to manage connection teardown
+  -
+
+Caddyshack
+
+```go
+func (cs *Caddyshack) Open(model string) (map[string]caddychack.Method, caddyshack.Connection, error) {
+  adp := cs.Adapters[model]
+  conn := adp.Connect() // get connection from adapters pool
+  methods := adp.BuildMethods()
+  return methods, conn, nil
+}
+```
+
+Adapter
+
+```go
+func (adp *Adapter) BuildMethods(conn caddyshack.Connection, m caddyshack.Model) (map[string]caddychack.Method, error){
+  methods: := make(map[string]caddychack.Method)
+  for _, m := range model.Properites {
+    // foreach property, use the connection in a closure to create methods and return them
+  }
+  return methods, nil
+}
+```
+
+Handler Usage
+
+```go
+func SomeHandler(cs Caddyshack)  {
+  user, conn, _ := cs.Open("user")
+  user["FindById"](Query{})
+  conn.close()
+}
+```
