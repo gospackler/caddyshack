@@ -154,7 +154,7 @@ func (cs * caddyshack.Definition) Open(name string) (caddyshack.Result) {
   - leaves pool/connection implementation up to adapter
   - allows injection of methods into collections
 - cons
-  - forces user to manage connection teardownÂ
+  - forces user to manage connection teardown
 
 Caddyshack
 
@@ -162,7 +162,7 @@ Caddyshack
 func (cs *Caddyshack) Open(model string) (map[string]caddychack.Method, caddyshack.Connection, error) {
   adp := cs.Adapters[model]
   conn := adp.Connect() // get connection from adapters pool
-  methods := adp.BuildMethods()
+  methods := adp.BuildMethods(conn, cs.Model[model])
   return methods, conn, nil
 }
 ```
