@@ -154,8 +154,7 @@ func (cs * caddyshack.Definition) Open(name string) (caddyshack.Result) {
   - leaves pool/connection implementation up to adapter
   - allows injection of methods into collections
 - cons
-  - forces user to manage connection teardown
-  -
+  - forces user to manage connection teardownÂ
 
 Caddyshack
 
