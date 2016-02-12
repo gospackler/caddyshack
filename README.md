@@ -155,6 +155,7 @@ func (cs * caddyshack.Definition) Open(name string) (caddyshack.Result) {
   - allows injection of methods into collections
 - cons
   - forces user to manage connection teardown
+  - rebuilds functions every time one is called
 
 Caddyshack
 
@@ -183,8 +184,7 @@ Handler Usage
 
 ```go
 func SomeHandler(cs Caddyshack)  {
-  user, conn, _ := cs.Open("user")
-  user["FindById"](Query{})
-  conn.close()
+  user, _ := cs.Collections["user"]
+  user.Find(Query{})
 }
 ```

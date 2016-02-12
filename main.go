@@ -73,7 +73,7 @@ func (cs *Caddyshack) LoadAdapter(adp adapter.Definition, rsc resource.Definitio
 // Build generates collections based on the current state of the Caddyshack instance
 func (cs *Caddyshack) Build() (Caddyshack, error) {
 	for _, m := range cs.Models {
-		a := cs.Adapters[m.Name]
+		a := cs.Adapters[m.Adapter]
 		if a == nil {
 			return *cs, errors.New("model [" + m.Name + "] attempted to use unknown adapter [" + m.Adapter + "]")
 		}
@@ -88,17 +88,21 @@ func (cs *Caddyshack) Build() (Caddyshack, error) {
 
 // BuildCollection generates a single collection using the model and adapter provided
 func (cs *Caddyshack) BuildCollection(m model.Definition, a adapter.Definition) (Caddyshack, error) {
-	cs.Collections[m.Name] = collection.Definition{}
+	coll, err := a.BuildCollection(m)
+	if err != nil {
+		return *cs, err
+	}
+
+	cs.Collections[m.Name] = coll
 	return *cs, nil
 }
 
 // Open a connection form the adapter connection pool to the specified collection
 func (cs *Caddyshack) Open(collName string) (collection.Definition, error) {
 	c := cs.Collections[collName]
-	if c.Name == "" {
-		return collection.Definition{}, errors.New("attempted to open unknown collection [" + collName + "]")
+	if c.GetName() == "" {
+		return c, errors.New("attempted to open unknown collection [" + collName + "]")
 	}
 
-	// c.Connect()
-	return collection.Definition{}, nil
+	return c, nil
 }
