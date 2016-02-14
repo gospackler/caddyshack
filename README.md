@@ -6,6 +6,14 @@ Adapter based ORM in Golang
 
 Architecture not finalized && nothing is implemented...
 
+## TODO
+
+- add `Find` function to caddyshack
+  - `cs.Find(map[string]interface, string)`
+  - takes the notation `foo.bar[0].biz`
+  - iterates through object and performs casting
+  - look into viper as a reference
+
 ## Example
 
 Assume directory structure:
