@@ -67,6 +67,7 @@ func (cs *Caddyshack) LoadAdapter(adp adapter.Definition, rsc resource.Definitio
 		return *cs, errors.New("adapter .Name cannot be empty")
 	}
 	cs.Adapters[name] = adp
+	cs.Adapters[name].SetConfig(rsc)
 	return *cs, nil
 }
 
