@@ -13,3 +13,11 @@ type Sort struct {
 	Key  string
 	Desc bool
 }
+
+// New returns a new instance of query defintion
+func New() Definition {
+	var q Definition
+	q.Where = make(map[string]interface{})
+	q.Sort = make(map[string]interface{})
+	return q
+}
