@@ -1,12 +1,32 @@
 package resource
 
+import (
+	"strconv"
+	"time"
+)
+
 // Definition specifies the structure for a resource
 type Definition struct {
 	Name     string `json:"name"`
 	Host     string `json:"host"`
-	Port     string `json:"port"`
+	Port     int    `json:"port"`
 	Username string `json:"username"`
 	Password string `json:"password"`
-	Timeout  string `json:"timeout"`
+	Timeout  int    `json:"timeout"`
 	Secure   bool   `json:"secure"`
+}
+
+// StrTimeout returns the timeout as a string
+func (r *Definition) StrTimeout() string {
+	return strconv.Itoa(r.Timeout)
+}
+
+// TimeoutDuration returns the port as an integer
+func (r *Definition) TimeoutDuration() time.Duration {
+	return time.Duration(r.Timeout) * time.Millisecond
+}
+
+// StrPort returns the port as a string
+func (r *Definition) StrPort() string {
+	return strconv.Itoa(r.Port)
 }
