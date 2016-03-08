@@ -1,16 +1,16 @@
 package adapter
 
 import (
-	"github.com/bushwood/caddyshack/collection"
-	"github.com/bushwood/caddyshack/model"
-	"github.com/bushwood/caddyshack/resource"
+	"github.com/georgethomas111/caddyshack/collection"
+	"github.com/georgethomas111/caddyshack/model"
+	"github.com/georgethomas111/caddyshack/resource"
 )
 
 // Definition specifies the adapter interface
 type Definition interface {
 	GetName() string
 	SetName(string) error
-	GetConfig() resource.Definition
-	SetConfig(resource.Definition) error
-	BuildCollection(model.Definition) (collection.Definition, error)
+	GetConfig() *resource.Definition
+	SetConfig(*resource.Definition) error
+	BuildCollection(*model.Definition) (collection.Definition, error)
 }
