@@ -107,3 +107,10 @@ func SomeHandlerFunction (cs caddyshack.Caddyshack) {
   // ... some work ...
 }
 ```
+
+##DESIGN
+
+store.go - abstraction of store
+caddyshack.go - abstraction of caddies/ individual instances for one model and a store.
+factory.go - abstraction of config
+jobs.go - jobs that can run on caddyshack. #Any type of tags that are possible for it.
