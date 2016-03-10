@@ -7,6 +7,7 @@ import (
 
 type StoreObject interface {
 	GetKey() string
+	SetKey(string)
 }
 
 // Store represents an abstraction(interface) to any store.

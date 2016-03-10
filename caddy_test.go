@@ -15,6 +15,10 @@ func (t *TestObj) GetKey() string {
 	return t.Name
 }
 
+func (t *TestObj) SetKey(name string) {
+	t.Name = name
+}
+
 func TestInit(t *testing.T) {
 
 	// Add model definition in future to it.
