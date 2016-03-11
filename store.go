@@ -18,10 +18,10 @@ type Store interface {
 	Init(*model.Definition) (error, Store)
 	Create(StoreObject) error
 	ReadOne(string) (error, StoreObject)
+	UpdateOne(StoreObject) error
+	DestroyOne(string) error
 
 	//Read(query.Definition) (interface{}, error)
-	//	Update(interface{}) error
-	//	UpdateOne(interface{}) error
-	//	Destroy(interface{}) error
-	//	DestroyOne(interface{}) error
+	//Update(interface{}) error
+	//Destroy(interface{}) error
 }

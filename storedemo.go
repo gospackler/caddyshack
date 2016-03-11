@@ -59,3 +59,20 @@ func (t *TextStore) ReadOne(key string) (err error, storeObj StoreObject) {
 	}
 	return
 }
+
+func (t *TextStore) UpdateOne(obj StoreObject) (err error) {
+
+	_, status := t.dictionary[obj.GetKey()]
+	if status == false {
+		err = errors.New("Object not found in the store")
+	}
+
+	t.dictionary[obj.GetKey()] = obj
+	return
+}
+
+// Generally delets succeed
+func (t *TextStore) DestroyOne(key string) error {
+	delete(t.dictionary, key)
+	return nil
+}
