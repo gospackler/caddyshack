@@ -2,7 +2,7 @@
 package caddyshack
 
 import (
-	"github.com/georgethomas111/caddyshack/model"
+	"github.com/bushwood/caddyshack/model"
 )
 
 type StoreObject interface {

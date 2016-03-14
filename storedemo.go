@@ -3,7 +3,7 @@ package caddyshack
 import (
 	"errors"
 	"fmt"
-	"github.com/georgethomas111/caddyshack/model"
+	"github.com/bushwood/caddyshack/model"
 )
 
 type TextStore struct {
