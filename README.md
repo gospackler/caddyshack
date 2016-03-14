@@ -78,32 +78,67 @@ Assume directory structure:
 }
 ```
 
-#### ./main.go
+#### Usage Example
 
 ```go
-package main
 
-import (
-    "github.com/bushwood/caddyshack"
-  	couch "github.com/bushwood/caddyshack-couchdb"
-)
+        cs := New()
 
-func main() {
-    rscs, _ :=  caddyshack.ParseRscFile("./resources.json")
-    models, _ := caddyshack.ParseModelDir("./models")
+        // From storedemo.go
+        textStore := NewTextStore()
+        err := cs.LoadStore(textStore)
 
-    cs, _ := caddyshack.New()
-    cs.LoadModels(models)
-    cs.LoadAdapter(couchAdp.Adapter, rscs["couchdb"])
-    cs.Build()
-    SomeHandlerFunction(cs)
-}
+        if err != nil {
+                t.Error("Error while loading a store.")
+        }
 
-func SomeHandlerFunction (cs caddyshack.Caddyshack) {
-  u := cs.Open("user") // get the user collection
+        model := &model.Definition{
+                Adapter: "text",
+                Name:    "testModel",
+        }
+        err = cs.AddModel(model)
+        if err != nil {
+                t.Error("Error while building caddyshack", err)
+        }
 
-  usr = u.FindOne(Query{})
+        testObj := &TestObj{
+                Name:  "abcd",
+                Value: "1234",
+        }
+        caddyName := model.Name + model.Adapter
+        err, caddy := cs.GetCaddy(caddyName)
+        if err != nil {
+                t.Error("Error while retreiving caddy ", err)
+        }
 
-  // ... some work ...
-}
+        err = caddy.StoreIns.Create(testObj)
+        if err != nil {
+
+                t.Error("Error creating object in the test Store")
+        }
+
+        err, obj := caddy.StoreIns.ReadOne(testObj.GetKey())
+        if err != nil {
+                t.Error("Error while retreiving object")
+        }
+
+        if obj.GetKey() != testObj.GetKey() {
+                t.Error("Retreived wrong object")
+        }
 ```
+
+The example above is the new interface to caddyshack.
+
+#### Steps in a logical sense
+* Have the interface in store.go implemented by the newStore we are planning to load.
+* Load the newStore Object to caddyshack.
+* Add the model we need to deal with also to caddyshack.
+* Get the instance of the store w.r.t model.
+* Use the storeInstance methods defined in the interface to play with it.
+
+## Files
+
+* store.go - abstraction of store
+* caddyshack.go - abstraction of caddies/ individual instances for one model and a store.
+* factory.go - abstraction of config
+* jobs.go - jobs that can run on caddyshack. #Any type of tags that are possible for it.
