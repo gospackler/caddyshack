@@ -19,6 +19,9 @@ func (t *TestObj) SetKey(name string) {
 	t.Name = name
 }
 
+var Caddy *Caddies
+var TextStoreObj *TextStore
+
 func TestInit(t *testing.T) {
 
 	// Add model definition in future to it.
@@ -65,5 +68,17 @@ func TestInit(t *testing.T) {
 	if obj.GetKey() != testObj.GetKey() {
 		t.Error("Retreived wrong object")
 	}
+	Caddy = caddy
+	TextStoreObj = textStore
 
+}
+
+func TestRead(t *testing.T) {
+	query := &StoreQuery{Condition: "abcd:abcd", Store: TextStoreObj}
+	err, objects := Caddy.StoreIns.Read(query)
+	if err != nil {
+		t.Error("Error while reading query ", query)
+	} else {
+		t.Log("Read", objects)
+	}
 }
