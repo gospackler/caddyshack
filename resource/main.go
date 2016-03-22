@@ -10,6 +10,7 @@ type Definition struct {
 	Name     string `json:"name"`
 	Host     string `json:"host"`
 	Port     int    `json:"port"`
+	DesDoc   string `json:"design"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Timeout  int    `json:"timeout"`

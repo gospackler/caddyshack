@@ -53,6 +53,8 @@ func (cs *Caddyshack) AddModel(model *model.Definition) (err error) {
 		return STORENOTFOUND
 	}
 	err, newCaddy := NewCaddy(model, storeIns)
-	cs.Caddies[newCaddy.Id] = newCaddy
+	if err == nil {
+		cs.Caddies[newCaddy.Id] = newCaddy
+	}
 	return
 }
