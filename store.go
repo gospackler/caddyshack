@@ -5,6 +5,14 @@ import (
 	"github.com/bushwood/caddyshack/model"
 )
 
+// The condition can be independent for each of the Stores dealt with.
+// couch db has one condition format for query
+// Redis may have another.
+// Queries can be of different types
+type Query interface {
+	Execute() (error, []StoreObject)
+}
+
 type StoreObject interface {
 	GetKey() string
 	SetKey(string)
@@ -20,8 +28,7 @@ type Store interface {
 	ReadOne(string) (error, StoreObject)
 	UpdateOne(StoreObject) error
 	DestroyOne(string) error
-
-	//Read(query.Definition) (interface{}, error)
+	Read(Query) (error, []StoreObject)
 	//Update(interface{}) error
 	//Destroy(interface{}) error
 }

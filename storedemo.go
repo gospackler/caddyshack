@@ -60,6 +60,10 @@ func (t *TextStore) ReadOne(key string) (err error, storeObj StoreObject) {
 	return
 }
 
+func (t *TextStore) Read(query Query) (err error, objList []StoreObject) {
+	return query.Execute()
+}
+
 func (t *TextStore) UpdateOne(obj StoreObject) (err error) {
 
 	_, status := t.dictionary[obj.GetKey()]
