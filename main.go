@@ -2,7 +2,6 @@ package caddyshack
 
 import (
 	"errors"
-	//	"fmt"
 
 	"github.com/bushwood/caddyshack/model"
 )
