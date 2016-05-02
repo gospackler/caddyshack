@@ -2,7 +2,8 @@ package caddyshack
 
 import (
 	"errors"
-	"fmt"
+
+	log "github.com/Sirupsen/logrus"
 	"github.com/gospackler/caddyshack/model"
 )
 
@@ -44,8 +45,8 @@ func (t *TextStore) verify(obj StoreObject) {
 
 func (t *TextStore) Create(obj StoreObject) error {
 
-	fmt.Println("Got the request to save ", obj)
-	fmt.Println("TODO : Validate obj with the model dealt with")
+	log.Debug("Got the request to save ", obj)
+	log.Debug("TODO : Validate obj with the model dealt with")
 	//private verify method exists which does not do anything right now. Use laterr
 	t.dictionary[obj.GetKey()] = obj
 	return nil
