@@ -2,9 +2,8 @@ package caddyshack
 
 import (
 	"errors"
-
-	log "github.com/Sirupsen/logrus"
-	"github.com/bushwood/caddyshack/model"
+	"fmt"
+	"github.com/gospackler/caddyshack/model"
 )
 
 type TextStore struct {
@@ -45,8 +44,8 @@ func (t *TextStore) verify(obj StoreObject) {
 
 func (t *TextStore) Create(obj StoreObject) error {
 
-	log.Debug("Got the request to save ", obj)
-	log.Debug("TODO : Validate obj with the model dealt with")
+	fmt.Println("Got the request to save ", obj)
+	fmt.Println("TODO : Validate obj with the model dealt with")
 	//private verify method exists which does not do anything right now. Use laterr
 	t.dictionary[obj.GetKey()] = obj
 	return nil

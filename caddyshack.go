@@ -1,7 +1,7 @@
 package caddyshack
 
 import (
-	"github.com/bushwood/caddyshack/model"
+	"github.com/gospackler/caddyshack/model"
 )
 
 type Caddies struct {
