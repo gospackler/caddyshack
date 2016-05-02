@@ -4,7 +4,7 @@ import (
 	"errors"
 	//	"fmt"
 
-	"github.com/bushwood/caddyshack/model"
+	"github.com/gospackler/caddyshack/model"
 )
 
 var (

@@ -83,7 +83,7 @@ err, caddy := cs.GetCaddy(caddyName)
 This example makes use of the storedemo.go to get the work done. 
 
 ``` bash
-git clone git@github.com:bushwood/caddyshack.git
+git clone git@github.com:gospackler/caddyshack.git
 cd caddyshack
 go test -v
 ```
@@ -92,7 +92,7 @@ Have a look at storedemo.go to get an idea of how an in memory key - value store
 
 Couch db implementation of caddyshack can be found below.
 
-https://github.com/bushwood/caddyshack-couchdb
+https://github.com/gospackler/caddyshack-couchdb
 
 ## TODO
 

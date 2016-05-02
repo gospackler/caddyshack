@@ -2,7 +2,7 @@
 package caddyshack
 
 import (
-	"github.com/bushwood/caddyshack/model"
+	"github.com/gospackler/caddyshack/model"
 )
 
 // The condition can be independent for each of the Stores dealt with.
